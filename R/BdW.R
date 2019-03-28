@@ -8,7 +8,7 @@
 #' @param upper upper limit used in \code{R} \code{optim} rotuine. Default is \code{c(10000,10000,10000)}.
 #'
 #' @return
-#' \item{fitted values:}{Fitted Values based on historical data} \item{max.likelihood:}{Maximum Likelihood of Beta Geometric}
+#' \item{fitted:}{Fitted Values based on historical data} \item{max.likelihood:}{Maximum Likelihood of Beta Geometric}
 #' \item{params - alpha, beta c:}{Returns alpha and beta paramters from maximum likelihood estimation for beta distribution and c}
 #'
 #' @examples

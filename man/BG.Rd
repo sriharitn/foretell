@@ -14,7 +14,7 @@ BG(surv_value, h, lower = c(0.001, 0.001))
 \item{lower}{lower limit used in \code{R} \code{optim} rotuine. Default is \code{c(1e-3,1e-3)}.}
 }
 \value{
-\item{fitted values:}{Fitted Values based on historical data} \item{max.likelihood:}{Maximum Likelihood of Beta Geometric}
+\item{fitted:}{Fitted Values based on historical data} \item{max.likelihood:}{Maximum Likelihood of Beta Geometric}
 \item{params - alpha, beta:}{Returns alpha and beta paramters from maximum likelihood estimation for beta distribution}
 }
 \description{
