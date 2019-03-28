@@ -12,7 +12,7 @@
 #' \item{params - alpha, beta c:}{Returns alpha and beta paramters from maximum likelihood estimation for beta distribution and c}
 #'
 #' @examples
-#' surv_value <- c(1,0.869,0.743,0.653,0.593)
+#' surv_value <- c(1.0,0.869,0.743,0.653,0.593)
 #' h <- 6
 #' BdW(surv_value,h)
 #'
