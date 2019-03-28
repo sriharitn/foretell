@@ -1,4 +1,4 @@
-#' Beta discrete Weibull (BdW) Model for Projecting Customer Retention
+#' Beta discrete Weibull (BdW) Model for Projecting Customer Retention.
 #'
 #' \code{BdW} is a beta discrete weibull model implemented based on \code{Fader and Hardie} probability based projection methedology
 #'
