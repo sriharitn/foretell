@@ -2,7 +2,7 @@
 % Please edit documentation in R/BG.R
 \name{BG}
 \alias{BG}
-\title{Beta Geometric (BG) Model for Projecting Customer Retention}
+\title{Beta Geometric (BG) Model for Projecting Customer Retention.}
 \usage{
 BG(surv_value, h, lower = c(0.001, 0.001))
 }
@@ -18,7 +18,7 @@ BG(surv_value, h, lower = c(0.001, 0.001))
 \item{params - alpha, beta:}{Returns alpha and beta paramters from maximum likelihood estimation for beta distribution}
 }
 \description{
-\code{BG} is a beta geometric model implemented based on \code{Fader and Hardie} probability based projection methedology
+\code{BG} is a beta geometric model implemented based on \code{Fader and Hardie} probability based projection methedology.
 }
 \examples{
 surv_value <- c(1,0.869,0.743,0.653,0.593)

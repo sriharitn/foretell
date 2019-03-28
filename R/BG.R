@@ -1,6 +1,6 @@
-#' Beta Geometric (BG) Model for Projecting Customer Retention
+#' Beta Geometric (BG) Model for Projecting Customer Retention.
 #'
-#' \code{BG} is a beta geometric model implemented based on \code{Fader and Hardie} probability based projection methedology
+#' \code{BG} is a beta geometric model implemented based on \code{Fader and Hardie} probability based projection methedology.
 #'
 #' @param surv_value a numeric vector of historical customer retention should start at 1 and values should be between 0 and 1
 #' @param h forecasting horizon
