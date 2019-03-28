@@ -2,7 +2,7 @@
 % Please edit documentation in R/BdW.R
 \name{BdW}
 \alias{BdW}
-\title{Beta discrete Weibull (BdW) Model for Projecting Customer Retention}
+\title{Beta discrete Weibull (BdW) Model for Projecting Customer Retention.}
 \usage{
 BdW(surv_value, h, lower = c(0.001, 0.001, 0.001), upper = c(10000,
   10000, 10000))
@@ -24,13 +24,13 @@ BdW(surv_value, h, lower = c(0.001, 0.001, 0.001), upper = c(10000,
 \code{BdW} is a beta discrete weibull model implemented based on \code{Fader and Hardie} probability based projection methedology
 }
 \examples{
-surv_value <- c(1,0.869,0.743,0.653,0.593)
+surv_value <- c(1.0,0.869,0.743,0.653,0.593)
 h <- 6
 BdW(surv_value,h)
 
 }
 \references{
-{Fader  PS and Hardie BGS (2007), How to project customer retention. Volume 21, Issue 1. Journal of Interactive Marketing}
+{Fader  PS and Hardie BGS (2007), How to project customer retention. Volume 21, Issue 1. Journal of Interactive Marketing.}
 
-{Fader  PS and Hardie BGS et al. (2018), How to Project Customer Retention Revisited: The Role of Duration Dependence. Volume 43, Journal of Interactive Marketing}
+{Fader  PS and Hardie BGS et al. (2018), How to Project Customer Retention Revisited: The Role of Duration Dependence. Volume 43, Journal of Interactive Marketing.}
 }
