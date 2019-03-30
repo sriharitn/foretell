@@ -1,6 +1,6 @@
 #' Beta Geometric (BG) Model for Projecting Customer Retention.
 #'
-#' \code{BG} is a beta geometric model implemented based on \code{Fader and Hardie} probability based projection methedology.
+#' \code{BG} is a beta geometric model implemented based on \code{Fader and Hardie} probability based projection methedology. The survivor function for \code{BG} is \deqn{Beta(a,b+t)/Beta(a,b)}
 #'
 #' @param surv_value a numeric vector of historical customer retention percentage should start at 100 and values should be between 0 and 100
 #' @param h forecasting horizon
@@ -21,11 +21,11 @@
 
 BG <- function(surv_value,h,lower = c(1e-3,1e-3)){
 
-  surv <- surv_value[-1]
-
-
   surv <- surv_value
 
+  if(surv[1] != 100) stop("Starting Value should be 100")
+
+  if(any(surv[-1] >= 100)) stop("Starting Value should be 100 and non-starting value should be between 0 and less than 100")
 
   t <- length(surv)
 

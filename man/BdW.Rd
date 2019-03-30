@@ -21,7 +21,7 @@ BdW(surv_value, h, lower = c(0.001, 0.001, 0.001), upper = c(10000,
 \item{params - alpha, beta c:}{Returns alpha and beta paramters from maximum likelihood estimation for beta distribution and c}
 }
 \description{
-\code{BdW} is a beta discrete weibull model implemented based on \code{Fader and Hardie} probability based projection methedology
+\code{BdW} is a beta discrete weibull model implemented based on \code{Fader and Hardie} probability based projection methedology. The survivor function for \code{BdW} is \deqn{Beta(a,b+t^c)/Beta(a,b)}
 }
 \examples{
 surv_value <- c(100,86.9,74.3,65.3,59.3)

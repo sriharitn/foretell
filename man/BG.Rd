@@ -18,7 +18,7 @@ BG(surv_value, h, lower = c(0.001, 0.001))
 \item{params - alpha, beta:}{Returns alpha and beta paramters from maximum likelihood estimation for beta distribution}
 }
 \description{
-\code{BG} is a beta geometric model implemented based on \code{Fader and Hardie} probability based projection methedology.
+\code{BG} is a beta geometric model implemented based on \code{Fader and Hardie} probability based projection methedology. The survivor function for \code{BG} is \deqn{Beta(a,b+t)/Beta(a,b)}
 }
 \examples{
 surv_value <- c(100,86.9,74.3,65.3,59.3)

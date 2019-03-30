@@ -27,6 +27,10 @@ LCW <- function(surv_value,h, lower = c(0.001,0.001,0.001,0.001,0.001),upper = c
 
   surv <- surv_value
 
+  if(surv[1] != 100) stop("Starting Value should be 100")
+
+  if(any(surv[-1] >= 100)) stop("Starting Value should be 100 and non-starting value should be between 0 and less than 100")
+
   t <- length(surv)
 
   die <- diff(-surv)
