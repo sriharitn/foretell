@@ -7,7 +7,7 @@
 BG(surv_value, h, lower = c(0.001, 0.001))
 }
 \arguments{
-\item{surv_value}{a numeric vector of historical customer retention percentage should start at 100 and values should be between 0 and 100}
+\item{surv_value}{a numeric vector of historical customer retention percentage should start at 100 and non-starting values should be between 0 and less than 100}
 
 \item{h}{forecasting horizon}
 
@@ -15,7 +15,7 @@ BG(surv_value, h, lower = c(0.001, 0.001))
 }
 \value{
 \item{fitted:}{Fitted Values based on historical data} \item{max.likelihood:}{Maximum Likelihood of Beta Geometric}
-\item{params - alpha, beta:}{Returns alpha and beta paramters from maximum likelihood estimation for beta distribution}
+\item{params - a, b:}{Returns a and b paramters from maximum likelihood estimation for beta distribution}
 }
 \description{
 \code{BG} is a beta geometric model implemented based on \code{Fader and Hardie} probability based projection methedology. The survivor function for \code{BG} is \deqn{Beta(a,b+t)/Beta(a,b)}

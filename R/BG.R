@@ -2,13 +2,13 @@
 #'
 #' \code{BG} is a beta geometric model implemented based on \code{Fader and Hardie} probability based projection methedology. The survivor function for \code{BG} is \deqn{Beta(a,b+t)/Beta(a,b)}
 #'
-#' @param surv_value a numeric vector of historical customer retention percentage should start at 100 and values should be between 0 and 100
+#' @param surv_value a numeric vector of historical customer retention percentage should start at 100 and non-starting values should be between 0 and less than 100
 #' @param h forecasting horizon
 #' @param lower lower limit used in \code{R} \code{optim} rotuine. Default is \code{c(1e-3,1e-3)}.
 #'
 #' @return
 #' \item{fitted:}{Fitted Values based on historical data} \item{max.likelihood:}{Maximum Likelihood of Beta Geometric}
-#' \item{params - alpha, beta:}{Returns alpha and beta paramters from maximum likelihood estimation for beta distribution}
+#' \item{params - a, b:}{Returns a and b paramters from maximum likelihood estimation for beta distribution}
 #'
 #' @examples
 #' surv_value <- c(100,86.9,74.3,65.3,59.3)
@@ -25,7 +25,7 @@ BG <- function(surv_value,h,lower = c(1e-3,1e-3)){
 
   if(surv[1] != 100) stop("Starting Value should be 100")
 
-  if(any(surv[-1] >= 100)) stop("Starting Value should be 100 and non-starting value should be between 0 and less than 100")
+  if(any(surv[-1] >= 100) | any(surv[-1] < 0)) stop("Starting Value should be 100 and non-starting value should be between 0 and less than 100")
 
   t <- length(surv)
 
@@ -63,7 +63,7 @@ BG <- function(surv_value,h,lower = c(1e-3,1e-3)){
 
   sbg <- beta(a, b+(k)) / beta(a, b)
 
-  list(fitted = sbg[1:t],projected = sbg[(t+1):(t+h)],max.likelihood = max.lik.sgb$value, params = c(alpha = a,beta = b))
+  list(fitted = sbg[1:t],projected = sbg[(t+1):(t+h)],max.likelihood = max.lik.sgb$value, params = c(a = a,b = b))
 
 
 }

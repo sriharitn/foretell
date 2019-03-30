@@ -2,7 +2,7 @@
 #'
 #' \code{LCW} is a latent class weibull model implementation based on \code{Fader and Hardie} probability based projection methedology. The survivor function for \code{LCW} is \deqn{wS(t|t1,c1)+(1-w)S(t|t2,c2), 0<w<1}
 #'
-#' @param surv_value a numeric vector of historical customer retention percentage should start at 100 and values should be between 0 and 100
+#' @param surv_value a numeric vector of historical customer retention percentage should start at 100 and non-starting values should be between 0 and less than 100
 #' @param h forecasting horizon
 #' @param lower lower limit used in \code{R} \code{optim} rotuine. Default is \code{c(0.001,0.001,0.001,0.001,0.001)}.
 #' @param upper upper limit used in \code{R} \code{optim} rotuine. Default is \code{c(0.99999,10000,0.999999,10000,0.99999)}.
@@ -29,7 +29,7 @@ LCW <- function(surv_value,h, lower = c(0.001,0.001,0.001,0.001,0.001),upper = c
 
   if(surv[1] != 100) stop("Starting Value should be 100")
 
-  if(any(surv[-1] >= 100)) stop("Starting Value should be 100 and non-starting value should be between 0 and less than 100")
+  if(any(surv[-1] >= 100) | any(surv[-1] < 0)) stop("Starting Value should be 100 and non-starting value should be between 0 and less than 100")
 
   t <- length(surv)
 

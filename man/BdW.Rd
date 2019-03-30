@@ -8,7 +8,7 @@ BdW(surv_value, h, lower = c(0.001, 0.001, 0.001), upper = c(10000,
   10000, 10000))
 }
 \arguments{
-\item{surv_value}{a numeric vector of historical customer retention percentage should start at 100 and values should be between 0 and 100}
+\item{surv_value}{a numeric vector of historical customer retention percentage should start at 100 and non-starting values should be between 0 and less than 100}
 
 \item{h}{forecasting horizon}
 
@@ -18,7 +18,7 @@ BdW(surv_value, h, lower = c(0.001, 0.001, 0.001), upper = c(10000,
 }
 \value{
 \item{fitted:}{Fitted Values based on historical data} \item{max.likelihood:}{Maximum Likelihood of Beta discrete Weibull}
-\item{params - alpha, beta c:}{Returns alpha and beta paramters from maximum likelihood estimation for beta distribution and c}
+\item{params - a, b and c:}{Returns a and b paramters from maximum likelihood estimation for beta distribution and c}
 }
 \description{
 \code{BdW} is a beta discrete weibull model implemented based on \code{Fader and Hardie} probability based projection methedology. The survivor function for \code{BdW} is \deqn{Beta(a,b+t^c)/Beta(a,b)}
