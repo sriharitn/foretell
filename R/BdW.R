@@ -2,7 +2,7 @@
 #'
 #' \code{BdW} is a beta discrete weibull model implemented based on \code{Fader and Hardie} probability based projection methedology
 #'
-#' @param surv_value a numeric vector of historical customer retention should start at 1 and values should be between 0 and 1
+#' @param surv_value a numeric vector of historical customer retention percentage should start at 100 and values should be between 0 and 100
 #' @param h forecasting horizon
 #' @param lower lower limit used in \code{R} \code{optim} rotuine. Default is \code{c(1e-3,1e-3)}.
 #' @param upper upper limit used in \code{R} \code{optim} rotuine. Default is \code{c(10000,10000,10000)}.
@@ -12,7 +12,7 @@
 #' \item{params - alpha, beta c:}{Returns alpha and beta paramters from maximum likelihood estimation for beta distribution and c}
 #'
 #' @examples
-#' surv_value <- c(1.0,0.869,0.743,0.653,0.593)
+#' surv_value <- c(100,86.9,74.3,65.3,59.3)
 #' h <- 6
 #' BdW(surv_value,h)
 #'
@@ -25,17 +25,12 @@
 
 BdW <- function(surv_value,h, lower = c(0.001,0.001,0.001),upper = c(10000,10000,10000)){
 
-  surv <- surv_value[-1]
+  surv <- surv_value
 
 
-  ## sBG likelihood
   t <- length(surv)
 
-  i = 1:t
-
-  survx <- c(1,surv)
-
-  die <- survx[i]-survx[i+1]
+  die <- diff(-surv)
 
 
   s <- rep(NA,length(surv))
@@ -47,18 +42,15 @@ BdW <- function(surv_value,h, lower = c(0.001,0.001,0.001),upper = c(10000,10000
     c<-params[3]
 
 
-    i = 1:t
+    i = 0:(t-1)
 
     s <- beta(a,b+i^c)/beta(a,b)
 
+    p <- diff(-s)
 
-    st <- c(1,s)
+    ll_ <- (die[i])*log(p[i])
 
-    p <- st[i]-st[i+1]
-
-    ll_ <- (die[i]*1000)*log(p[i])
-
-    ll <- sum(ll_)+(surv[t]*1000)*log(s[t])
+    ll <- sum(ll_)+(surv[t])*log(s[t])
 
     return(-ll)
   }
@@ -72,11 +64,11 @@ BdW <- function(surv_value,h, lower = c(0.001,0.001,0.001),upper = c(10000,10000
   c <- max.lik.dbw$par[3]
 
 
-  k <- 1:(t+h)
+  k <- 0:(t+h)
 
-  dbw <- beta(a, b+(k^c)) / beta(a, b)
+  dbw <- (beta(a, b+(k^c)) / beta(a, b))*100
 
-  list(fitted = c(1,dbw[1:t]),projected = dbw[(t+1):(t+h)],max.likelihood = max.lik.dbw$value, params = c(alpha = a,beta = b,c = c))
+  list(fitted = dbw[1:t],projected = dbw[(t+1):(t+h)],max.likelihood = max.lik.dbw$value, params = c(alpha = a,beta = b,c = c))
 
 }
 

@@ -8,7 +8,7 @@ LCW(surv_value, h, lower = c(0.001, 0.001, 0.001, 0.001, 0.001),
   upper = c(0.99999, 10000, 0.999999, 10000, 0.99999))
 }
 \arguments{
-\item{surv_value}{a numeric vector of historical customer retention should start at 1 and values should be between 0 and 1}
+\item{surv_value}{a numeric vector of historical customer retention percentage should start at 100 and values should be between 0 and 100}
 
 \item{h}{forecasting horizon}
 
@@ -24,7 +24,7 @@ LCW(surv_value, h, lower = c(0.001, 0.001, 0.001, 0.001, 0.001),
 \code{LCW} is a latent class weibull model implementation based on \code{Fader and Hardie} probability based projection methedology. The survivor function for \code{LCW} is \deqn{wS(t|t1,c1)+(1-w)S(t|t2,c2), 0<w<1}
 }
 \examples{
-surv_value <- c(1,0.869,0.743,0.653,0.593,0.551,0.517,0.491,0.468,0.445,0.427,0.409,0.394)
+surv_value <- c(100,86.9,74.3,65.3,59.3,55.1,51.7,49.1,46.8,44.5,42.7,40.9,39.4)
 h <- 6
 LCW(surv_value,h)
 

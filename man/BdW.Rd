@@ -8,7 +8,7 @@ BdW(surv_value, h, lower = c(0.001, 0.001, 0.001), upper = c(10000,
   10000, 10000))
 }
 \arguments{
-\item{surv_value}{a numeric vector of historical customer retention should start at 1 and values should be between 0 and 1}
+\item{surv_value}{a numeric vector of historical customer retention percentage should start at 100 and values should be between 0 and 100}
 
 \item{h}{forecasting horizon}
 
@@ -24,7 +24,7 @@ BdW(surv_value, h, lower = c(0.001, 0.001, 0.001), upper = c(10000,
 \code{BdW} is a beta discrete weibull model implemented based on \code{Fader and Hardie} probability based projection methedology
 }
 \examples{
-surv_value <- c(1.0,0.869,0.743,0.653,0.593)
+surv_value <- c(100,86.9,74.3,65.3,59.3)
 h <- 6
 BdW(surv_value,h)
 
