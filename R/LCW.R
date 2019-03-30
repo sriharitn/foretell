@@ -69,7 +69,7 @@ LCW <- function(surv_value,h, lower = c(0.001,0.001,0.001,0.001,0.001),upper = c
 
   k <- 0:(t+h)
 
-  cw <- w*(1-t1)^(k^c1)+(1-w)*(1-t2)^(k^c2)
+  cw <- (w*(1-t1)^(k^c1)+(1-w)*(1-t2)^(k^c2))*100
 
   list(fitted = 1,cw[1:t],projected = cw[(t+1):(t+h)],max.likelihood = max.lik.cw$value, params = c(t1=t1,c1=c1,t2=t2,c2=c2,w=w))
 
