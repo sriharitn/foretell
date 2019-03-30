@@ -17,7 +17,7 @@ BdW(surv_value, h, lower = c(0.001, 0.001, 0.001), upper = c(10000,
 \item{upper}{upper limit used in \code{R} \code{optim} rotuine. Default is \code{c(10000,10000,10000)}.}
 }
 \value{
-\item{fitted:}{Fitted Values based on historical data} \item{max.likelihood:}{Maximum Likelihood of Beta Geometric}
+\item{fitted:}{Fitted Values based on historical data} \item{max.likelihood:}{Maximum Likelihood of Beta discrete Weibull}
 \item{params - alpha, beta c:}{Returns alpha and beta paramters from maximum likelihood estimation for beta distribution and c}
 }
 \description{
