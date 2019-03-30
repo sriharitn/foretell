@@ -61,7 +61,7 @@ BG <- function(surv_value,h,lower = c(1e-3,1e-3)){
 
   k <- 0:(t+h)
 
-  sbg <- beta(a, b+(k)) / beta(a, b)
+  sbg <- (beta(a, b+(k)) / beta(a, b))*100
 
   list(fitted = sbg[1:t],projected = sbg[(t+1):(t+h)],max.likelihood = max.lik.sgb$value, params = c(a = a,b = b))
 
