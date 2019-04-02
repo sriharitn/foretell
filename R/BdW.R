@@ -66,9 +66,6 @@ BdW <- function(surv_value,h, lower = c(0.001,0.001,0.001),upper = c(10000,10000
   })
 
 
-  max.lik.dbw <- stats::optim(c(1,1,1),fn=dbw.log.lik,lower =lower, upper = upper,method="L-BFGS-B")
-
-
   a <- max.lik.dbw$par[1]
   b <- max.lik.dbw$par[2]
   c <- max.lik.dbw$par[3]
