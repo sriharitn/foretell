@@ -53,7 +53,12 @@ BG <- function(surv_value,h,lower = c(1e-3,1e-3)){
   }
 
 
-  max.lik.sgb <- stats::optim(c(1,2),fn=bg.log.lik,lower = lower,method="L-BFGS-B")
+  max.lik.dbw <- tryCatch({
+    stats::optim(c(1,2),fn=bg.log.lik,lower = lower,method="L-BFGS-B")
+  }, error = function(error_condition) {
+    message("stats::optim not working switching to nloptr::slsqp for maximum likelihood optimization")
+    nloptr::slsqp(c(1,2),fn=bg.log.lik,lower = lower)
+  })
 
 
   a <- max.lik.sgb$par[1]

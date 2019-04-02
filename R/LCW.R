@@ -59,9 +59,14 @@ LCW <- function(surv_value,h, lower = c(0.001,0.001,0.001,0.001,0.001),upper = c
     return(-ll)
   }
 
-
-  max.lik.cw  <- stats::optim(c(0.5,2,0.5,1,0.6),fn=cw.lik,lower = lower,
-                         upper = upper,method="L-BFGS-B")
+  max.lik.dbw <- tryCatch({
+    stats::optim(c(0.5,2,0.5,1,0.6),fn=cw.lik,lower = lower,
+                 upper = upper,method="L-BFGS-B")
+  }, error = function(error_condition) {
+    message("stats::optim not working switching to nloptr::slsqp for maximum likelihood optimization")
+    nloptr::slsqp(c(0.5,2,0.5,1,0.6),fn=cw.lik,lower = lower,
+                  upper = upper)
+  })
 
 
   t1 <- max.lik.cw$par[1]
