@@ -58,6 +58,13 @@ BdW <- function(surv_value,h, lower = c(0.001,0.001,0.001),upper = c(10000,10000
     return(-ll)
   }
 
+  max.lik.dbw <- tryCatch({
+    stats::optim(c(1,1,1),fn=dbw.log.lik,lower =lower, upper = upper,method="L-BFGS-B")
+  }, error = function(error_condition) {
+    print("stats::optim not working switching to nloptr::slsqp")
+    nloptr::slsqp(c(1,1,1),fn=dbw.log.lik,lower =lower, upper = upper)
+  })
+
 
   max.lik.dbw <- stats::optim(c(1,1,1),fn=dbw.log.lik,lower =lower, upper = upper,method="L-BFGS-B")
 
