@@ -1,7 +1,7 @@
 Package: foretell
 Type: Package
 Title: Projecting Customer Retention Based on Fader and Hardie Probability Models
-Version: 0.1.0
+Version: 0.2.0
 Author: Srihari Jaganathan
 Maintainer: Srihari Jaganathan <sriharitn@gmail.com>
 Description: Project Customer Retention based on Beta Geometric, Beta Discrete Weibull and Latent Class Discrete Weibull Models.This package is based on Fader and Hardie (2007) <doi:10.1002/dir.20074> and Fader and Hardie et al. (2018) <doi:10.1016/j.intmar.2018.01.002>.
