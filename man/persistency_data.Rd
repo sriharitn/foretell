@@ -3,10 +3,10 @@
 \docType{data}
 \name{persistency_data}
 \alias{persistency_data}
-\title{\% of patient persistency by different therapeutic class.}
+\title{Patient persistency by different therapeutic class.}
 \format{A data frame 334 observatios and 3 variables:
 \describe{
-  \item{therapy}{Type of Dataset. Unique values include: \code{"Hypertension" "Occular Hypertension"
+  \item{therapy}{Type of therapy. Unique values include: \code{"Hypertension" "Occular Hypertension"
   "Statin" "Insulin" "Epilepsy" "RA" "Osteoporosis" "Alzheimer""ADHD"
   "Atrial Fibrillation"}. See references below.
   Data was extracted using \url{https://automeris.io/WebPlotDigitizer/}
