@@ -15,7 +15,7 @@
 #' h <- 6
 #' BG(surv_value,h)
 #'
-#' @references {Fader  PS and Hardie BGS (2007), How to project customer retention. Volume 21, Issue 1. Journal of Interactive Marketing}
+#' @references {Fader P, Hardie B. How to project customer retention. Journal of Interactive Marketing. 2007;21(1):76-90.}
 #' @export
 
 
