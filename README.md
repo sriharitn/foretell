@@ -1,3 +1,5 @@
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/foretell)](https://cran.r-project.org/package=foretell)
+
 foretell <img src="logo/foretell.png" align="right" height="200"/>
 ==========================================================
 
