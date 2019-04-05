@@ -1,4 +1,5 @@
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/foretell)](https://cran.r-project.org/package=foretell)
+[![Licence](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 foretell <img src="logo/foretell.png" align="right" height="200"/>
 ==========================================================
