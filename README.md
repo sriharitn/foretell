@@ -47,6 +47,11 @@ LCW(surv_value,h)
 
 ```
 
+## References
+
+* Fader P, Hardie B. How to project customer retention. Journal of Interactive Marketing. 2007;21(1):76-90.
+* Fader P, Hardie B, Liu Y, Davin J, Steenburgh T. "How to Project Customer Retention" Revisited: The Role of Duration Dependence. Journal of Interactive Marketing. 2018;43:1-16.
+
 ## License
 
 This package is free and open source software, licensed under GPL-3.
