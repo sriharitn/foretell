@@ -1,7 +1,6 @@
-seer <img src="logo/foretell.png" align="right" height="200"/>
+foretell <img src="logo/foretell.png" align="right" height="200"/>
 ==========================================================
 
-# foretell
 Project Customer Retention based on Fader and Hardie et. al. Probability Mixture Models
 
 
