@@ -3,7 +3,7 @@
 \docType{data}
 \name{persistency_data}
 \alias{persistency_data}
-\title{Patient persistency by different therapeutic class.}
+\title{Drug persistency (retention) rates by different therapeutic class.}
 \format{A data frame 334 observatios and 3 variables:
 \describe{
   \item{therapy}{Type of therapy. Unique values include: \code{"Hypertension" "Occular Hypertension"
@@ -18,7 +18,7 @@
 data(persistency_data)
 }
 \description{
-A dataset containing persistency of patients in different therapeutic classes.
+A dataset containing drug persistency of patients in different therapeutic classes.
 }
 \references{
 {\code{Hypertension:} Solomon M, Goldman D, Joyce G, Escarce J. Cost Sharing and the Initiation of Drug Therapy for the Chronically Ill.Archives of Internal Medicine. 2009;169(8):740-748.}

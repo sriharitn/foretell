@@ -1,6 +1,6 @@
-#' Patient persistency by different therapeutic class.
+#' Drug persistency (retention) rates by different therapeutic class.
 #'
-#' A dataset containing persistency of patients in different therapeutic classes.
+#' A dataset containing drug persistency of patients in different therapeutic classes.
 #'
 #' @format A data frame 334 observatios and 3 variables:
 #' \describe{
