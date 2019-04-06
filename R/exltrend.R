@@ -61,9 +61,6 @@ exltrend <- function(surv_value,h){
 
   pred <- data.frame(lin.p = pred.lm, exp.p=pred.exp, log.p=pred.log,poly.p=pred.poly,pow.p=pred.pow)
 
-  row.names(pred) <- c()
-
-
   return(list(fitted = pred[1:t,],projected = pred[(t+1):(t+h),]))
 
 }
