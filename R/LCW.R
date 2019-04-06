@@ -8,7 +8,9 @@
 #' @param upper upper limit used in \code{R} \code{optim} rotuine. Default is \code{c(0.99999,10000,0.999999,10000,0.99999)}.
 #'
 #' @return
-#' \item{fitted:}{Fitted Values based on historical data} \item{max.likelihood:}{Maximum Likelihood of LCW}
+#' \item{fitted:}{Fitted Values based on historical data}
+#' \item{projected:}{Projected \code{h} values based on historical data}
+#' \item{max.likelihood:}{Maximum Likelihood of LCW}
 #' \item{params - t1,t2,c1,c2,w:}{Returns t1,c1,t2,c2,w paramters from maximum likelihood estimation}
 #'
 #' @examples

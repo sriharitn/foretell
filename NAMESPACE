@@ -3,3 +3,4 @@
 export(BG)
 export(BdW)
 export(LCW)
+export(exltrend)
