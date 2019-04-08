@@ -1,7 +1,7 @@
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/foretell)](https://cran.r-project.org/package=foretell)
 [![Licence](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
-foretell <img src="man/figures/logo1.png" align="right" height="300"/>
+foretell <img src="man/figures/logo1.png" align="right" height="200"/>
 ==========================================================
 
 Project Customer Retention based on Fader and Hardie et. al. Probability Mixture Models
