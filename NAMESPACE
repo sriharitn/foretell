@@ -3,4 +3,8 @@
 export(BG)
 export(BdW)
 export(LCW)
+export(dsbg)
 export(exltrend)
+export(psbg)
+export(qsbg)
+export(rsbg)

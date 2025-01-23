@@ -109,7 +109,7 @@ qsbg <- function(p, shape1, shape2) {
   return(vectorized_compute(p))
 }
 
-#' @export
+#'
 
 rsbg <- function(n, shape1, shape2) {
   if (!is.numeric(n) || n <= 0 || n != as.integer(n)) {
