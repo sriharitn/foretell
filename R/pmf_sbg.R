@@ -5,7 +5,7 @@
 #' @usage
 #' dsbg(x, shape1, shape2, log = FALSE)
 #' psbg(x, shape1, shape2, lower.tail = TRUE, log.p = FALSE)
-#' qsbg(p, shape1, shape2)
+#' qsbg(p, shape1, shape2, lower.tail = TRUE, log.p = FALSE)
 #' rsbg(n, shape1, shape2)
 #'
 #' @param x Vector of non-negative integers for `dsbg` and `psbg`.
@@ -42,16 +42,24 @@ NULL
 dsbg <- function(x, shape1, shape2, log = FALSE) {
   non_integers <- x[x != as.integer(x)]
   if (length(non_integers) > 0) {
-    warning(paste0("The following values of x are non-integers: ", paste(non_integers, collapse = ", ")))
+    warning(paste0(
+      "The following values of x are non-integers: ",
+      paste(non_integers, collapse = ", ")
+    ))
   }
   if (any(x < 0)) {
-    stop(paste0("All values of x must be non-negative integers. Found: ", paste(x[x < 0], collapse = ", ")))
+    stop(paste0(
+      "All values of x must be non-negative integers. Found: ",
+      paste(x[x < 0], collapse = ", ")
+    ))
   }
   if (shape1 <= 0 || shape2 <= 0) {
     stop("Both shape1 and shape2 must be greater than 0.")
   }
-  cdf_value1 <- 1 - (beta(shape1, shape2 + x) / beta(shape1, shape2))
-  cdf_value0 <- 1 - (beta(shape1, shape2 + (x - 1)) / beta(shape1, shape2))
+  cdf_value1 <-
+    1 - (beta(shape1, shape2 + x) / beta(shape1, shape2))
+  cdf_value0 <-
+    1 - (beta(shape1, shape2 + (x - 1)) / beta(shape1, shape2))
   pdf_value <- cdf_value1 - cdf_value0
   pdf_value <- ifelse(x == 0, 0, pdf_value)
   if (log) {
@@ -62,54 +70,80 @@ dsbg <- function(x, shape1, shape2, log = FALSE) {
 
 #' @export
 
-psbg <- function(x, shape1, shape2, lower.tail = TRUE, log.p = FALSE) {
-  non_integers <- x[x != as.integer(x)]
-  if (length(non_integers) > 0) {
-    warning(paste0("The following values of x are non-integers: ", paste(non_integers, collapse = ", ")))
+psbg <-
+  function(x,
+           shape1,
+           shape2,
+           lower.tail = TRUE,
+           log.p = FALSE) {
+    non_integers <- x[x != as.integer(x)]
+    if (length(non_integers) > 0) {
+      warning(paste0(
+        "The following values of x are non-integers: ",
+        paste(non_integers, collapse = ", ")
+      ))
+    }
+    if (any(x < 0)) {
+      stop(paste0(
+        "All values of x must be non-negative integers. Found: ",
+        paste(x[x < 0], collapse = ", ")
+      ))
+    }
+    if (shape1 <= 0 || shape2 <= 0) {
+      stop("Both shape1 and shape2 must be greater than 0.")
+    }
+    cdf_value <-
+      1 - (beta(shape1, shape2 + x) / beta(shape1, shape2))
+    if (!lower.tail) {
+      cdf_value <- 1 - cdf_value
+    }
+    if (log.p) {
+      cdf_value <- log(cdf_value)
+    }
+    return(cdf_value)
   }
-  if (any(x < 0)) {
-    stop(paste0("All values of x must be non-negative integers. Found: ", paste(x[x < 0], collapse = ", ")))
-  }
-  if (shape1 <= 0 || shape2 <= 0) {
-    stop("Both shape1 and shape2 must be greater than 0.")
-  }
-  cdf_value <- 1 - (beta(shape1, shape2 + x) / beta(shape1, shape2))
-  if (!lower.tail) {
-    cdf_value <- 1 - cdf_value
-  }
-  if (log.p) {
-    cdf_value <- log(cdf_value)
-  }
-  return(cdf_value)
-}
 
 #' @export
 
-qsbg <- function(p, shape1, shape2) {
-  if (any(p < 0 | p > 1)) {
-    stop("p must be between 0 and 1")
-  }
-  if (shape1 <= 0 || shape2 <= 0) {
-    stop("Both shape1 and shape2 must be greater than 0.")
-  }
-
-  compute_quantile_scalar <- function(p) {
-    if (p == 0) {
-      return(0)
-    } else {
-      result <- pracma::newton(
-        function(t) beta(shape1, shape2 + t) / beta(shape1, shape2) - p,
-        x0 = shape1 / (shape1 + shape2)
-      )
-      return(round(result$root))
+qsbg <-
+  function(p,
+           shape1,
+           shape2,
+           lower.tail = TRUE,
+           log.p = FALSE) {
+    if (log.p) {
+      p <- exp(p)
     }
+
+    if (!lower.tail) {
+      p <- 1 - p
+    }
+
+    if (any(p < 0 | p > 1)) {
+      stop("p must be between 0 and 1")
+    }
+    if (shape1 <= 0 || shape2 <= 0) {
+      stop("Both shape1 and shape2 must be greater than 0.")
+    }
+
+
+
+    compute_quantile_scalar <- function(p) {
+      if (p == 0) {
+        return(0)
+      } else {
+        result <- pracma::newton(function(t)
+          beta(shape1, shape2 + t) / beta(shape1, shape2) - p,
+          x0 = shape1 / (shape1 + shape2))
+        return(round(result$root))
+      }
+    }
+
+    vectorized_compute <- Vectorize(compute_quantile_scalar)
+    return(vectorized_compute(p))
   }
 
-  vectorized_compute <- Vectorize(compute_quantile_scalar)
-  return(vectorized_compute(p))
-}
-
-#'
+#' @export
 
 rsbg <- function(n, shape1, shape2) {
   if (!is.numeric(n) || n <= 0 || n != as.integer(n)) {
