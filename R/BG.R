@@ -81,7 +81,7 @@ BG <- function(surv_value, h, lower = c(1e-3, 1e-3)) {
   projected <- if (h > 0) {
     projected <- sbg[(t + 1):(t + h)]
   } else {
-    message("Forecast horizon is: ",h,", No Forecast generated.")
+    message("Forecast horizon h is: ",h,", No Forecast generated.")
     projected <- numeric(0) # Return an empty numeric vector if h = 0
   }
 
