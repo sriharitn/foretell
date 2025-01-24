@@ -21,45 +21,52 @@
 #' @export
 
 
-BG <- function(surv_value,h,lower = c(1e-3,1e-3)){
-
+BG <- function(surv_value, h, lower = c(1e-3, 1e-3)) {
   surv <- surv_value
 
-  if(surv[1] != 100) stop("Starting Value should be 100")
+  if (surv[1] != 100)
+    stop("Starting Value should be 100")
 
-  if(any(surv[-1] >= 100) | any(surv[-1] < 0)) stop("Starting Value should be 100 and non-starting value should be between 0 and less than 100")
+  if (any(surv[-1] >= 100) |
+      any(surv[-1] < 0))
+    stop("Starting Value should be 100 and non-starting value should be between 0 and less than 100")
 
   t <- length(surv)
 
   die <- diff(-surv)
 
-  s <- rep(NA,length(surv))
-  p <- rep(NA,length(surv))
+  s <- rep(NA, length(surv))
+  p <- rep(NA, length(surv))
 
-  bg.log.lik<-function(params) {
-    a<-params[1]
-    b<-params[2]
+  bg.log.lik <- function(params) {
+    a <- params[1]
+    b <- params[2]
 
 
-    i = 0:(t-1)
+    i = 0:(t - 1)
 
-    s <- beta(a,b+i)/beta(a,b)
+    s <- beta(a, b + i) / beta(a, b)
 
     p <- diff(-s)
 
-    ll_ <- (die[i])*log(p[i])
+    ll_ <- (die[i]) * log(p[i])
 
-    ll <- sum(ll_)+(surv[t])*log(s[t])
+    ll <- sum(ll_) + (surv[t]) * log(s[t])
 
     return(-ll)
   }
 
 
   max.lik.sgb <- tryCatch({
-    stats::optim(c(1,2),fn=bg.log.lik,lower = lower,method="L-BFGS-B")
+    stats::optim(c(1, 2),
+                 fn = bg.log.lik,
+                 lower = lower,
+                 method = "L-BFGS-B")
   }, error = function(error_condition) {
-    message("Note: stats::optim not working switching to nloptr::slsqp for maximum likelihood optimization")
-    nloptr::slsqp(c(1,2),fn=bg.log.lik,lower = lower)
+    message(
+      "Note: stats::optim not working switching to nloptr::slsqp for maximum likelihood optimization"
+    )
+    nloptr::slsqp(c(1, 2), fn = bg.log.lik, lower = lower)
   })
 
 
@@ -68,12 +75,22 @@ BG <- function(surv_value,h,lower = c(1e-3,1e-3)){
 
   k <- 0:(t+h)
 
-  sbg <- (beta(a, b+(k)) / beta(a, b))*100
+  sbg <- (beta(a, b + k) / beta(a, b)) * 100
 
-  list(fitted = sbg[1:t],projected = sbg[(t+1):(t+h)],max.likelihood = max.lik.sgb$value, params = c(a = a,b = b))
+  # Vectorized extraction of projected values
+  projected <- if (h > 0) {
+    projected <- sbg[(t + 1):(t + h)]
+  } else {
+    message("Forecast horizon is: ",h,", No Forecast generated.")
+    projected <- numeric(0) # Return an empty numeric vector if h = 0
+  }
+
+  list(
+    fitted = sbg[1:t],
+    projected = projected,
+    max.likelihood = max.lik.sgb$value,
+    params = c(a = a, b = b)
+  )
 
 
 }
-
-
-

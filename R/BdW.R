@@ -76,6 +76,13 @@ BdW <- function(surv_value,h, lower = c(0.001,0.001,0.001),upper = c(10000,10000
 
   dbw <- (beta(a, b+(k^c)) / beta(a, b))*100
 
+  projected <- if (h > 0) {
+    projected <- dbw[(t + 1):(t + h)]
+  } else {
+    message("Forecast horizon is: ",h,", No Forecast generated.")
+    projected <- numeric(0) # Return an empty numeric vector if h = 0
+  }
+
   list(fitted = dbw[1:t],projected = dbw[(t+1):(t+h)],max.likelihood = max.lik.dbw$value, params = c(a = a,b = b,c = c))
 
 }
