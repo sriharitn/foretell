@@ -180,13 +180,11 @@ rbdw <- function(n, shape1, shape2, shape3) {
   theta <- rbeta(n, shape1, shape2)
   theta <- pmin(pmax(theta, 0.0000001), 0.9999999)
 
-  theta <- rbeta(1, shape1, shape2)
-
-  # Generate a uniform random number for inversion
+   # Generate a uniform random number for inversion
   u <- runif(n, 0, 1)
 
   # Invert the CDF to solve for t
-  t <- ceiling(((log(1 - u) / log(1 - theta)) ^ (1 / shape3)))+1
+  t <- floor(((log(1 - u) / log(1 - theta)) ^ (1 / shape3)))+1
 
   return(t)
 
