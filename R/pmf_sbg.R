@@ -62,21 +62,18 @@ dsbg <- function(x, shape1, shape2, log = FALSE) {
       paste(non_integers, collapse = ", ")
     ))
   }
-  if (any(x < 0)) {
+  if (any(x <=0)) {
     stop(paste0(
-      "All values of x must be non-negative integers. Found: ",
+      "All values of x must be non-negative integers >0. Found: ",
       paste(x[x < 0], collapse = ", ")
     ))
   }
   if (shape1 <= 0 || shape2 <= 0) {
     stop("Both shape1 and shape2 must be greater than 0.")
   }
-  cdf_value1 <-
-    1 - (beta(shape1, shape2 + x) / beta(shape1, shape2))
-  cdf_value0 <-
-    1 - (beta(shape1, shape2 + (x - 1)) / beta(shape1, shape2))
-  pdf_value <- cdf_value1 - cdf_value0
-  pdf_value <- ifelse(x == 0, 0, pdf_value)
+
+  pdf_value <- beta(shape1+1,shape2+x-1)/beta(shape1,shape2)
+
   if (log) {
     pdf_value <- log(pdf_value)
   }

@@ -45,7 +45,13 @@
 NULL
 
 #' @export
-dbdw <- function(x, shape1, shape2, shape3, log = FALSE) {
+
+dbdw <-
+  function(x,
+           shape1,
+           shape2,
+           shape3,
+           log = FALSE) {
   non_integers <- x[x != as.integer(x)]
   if (length(non_integers) > 0) {
     warning(paste0(
@@ -53,21 +59,20 @@ dbdw <- function(x, shape1, shape2, shape3, log = FALSE) {
       paste(non_integers, collapse = ", ")
     ))
   }
-  if (any(x < 0)) {
+  if (any(x <= 0)) {
     stop(paste0(
-      "All values of x must be non-negative integers. Found: ",
+      "All values of x must be non-negative integers > 0. Found: ",
       paste(x[x < 0], collapse = ", ")
     ))
   }
   if (shape1 <= 0 || shape2 <= 0 || shape3 <= 0) {
     stop("shape1, shape2 and shape3 must be greater than 0.")
   }
-  cdf_value1 <-
-    1 - (beta(shape1, shape2 + x ^ shape3) / beta(shape1, shape2))
-  cdf_value0 <-
-    1 - (beta(shape1, shape2 + (x - 1) ^ shape3) / beta(shape1, shape2))
-  pdf_value <- cdf_value1 - cdf_value0
-  pdf_value <- ifelse(x == 0, 0, pdf_value)
+
+  pdf_value <- (1/ beta(shape1,shape2)) *
+    (beta(shape1,shape2+(x-1)^shape3) - beta(shape1,shape2+(x)^shape3))
+
+
   if (log) {
     pdf_value <- log(pdf_value)
   }
@@ -133,9 +138,6 @@ qbdw <-
     if (shape1 <= 0 || shape2 <= 0 || shape3 <= 0) {
       stop("shape1, shape2 and shape3 must be greater than 0.")
     }
-
-
-
     compute_quantile_scalar <- function(p) {
       if (p == 0) {
         return(0)
@@ -170,7 +172,11 @@ qbdw <-
 
 #' @export
 
-rbdw <- function(n, shape1, shape2, shape3) {
+rbdw <-
+  function(n,
+           shape1,
+           shape2,
+           shape3) {
   if (!is.numeric(n) || n <= 0 || n != as.integer(n)) {
     stop("n must be a positive integer.")
   }
@@ -180,14 +186,11 @@ rbdw <- function(n, shape1, shape2, shape3) {
   theta <- rbeta(n, shape1, shape2)
   theta <- pmin(pmax(theta, 0.0000001), 0.9999999)
 
-   # Generate a uniform random number for inversion
+  # Generate a uniform random number for inversion
   u <- runif(n, 0, 1)
 
   # Invert the CDF to solve for t
-  t <- floor(((log(1 - u) / log(1 - theta)) ^ (1 / shape3)))+1
+  t <- floor(((log(1 - u) / log(1 - theta)) ^ (1 / shape3))) + 1
 
   return(t)
-
-
-
 }
