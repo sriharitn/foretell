@@ -5,6 +5,7 @@
 #' @param surv_value a numeric vector of historical customer retention percentage should start at 100 and non-starting values should be between 0 and less than 100
 #' @param h forecasting horizon
 #' @param lower lower limit used in \code{R} \code{optim} rotuine. Default is \code{c(1e-3,1e-3)}.
+#' @param subjects Total number of customers or subject default 1000
 #'
 #' @return
 #' \item{fitted:}{Fitted values based on historical data}
@@ -21,7 +22,7 @@
 #' @export
 
 
-BG <- function(surv_value, h, lower = c(1e-3, 1e-3)) {
+BG <- function(surv_value, h, lower = c(1e-3, 1e-3),subjects=1000) {
   surv <- surv_value
 
   if (surv[1] != 100)
@@ -30,6 +31,8 @@ BG <- function(surv_value, h, lower = c(1e-3, 1e-3)) {
   if (any(surv[-1] >= 100) |
       any(surv[-1] < 0))
     stop("Starting Value should be 100 and non-starting value should be between 0 and less than 100")
+
+  surv <- (surv/100)*subjects
 
   t <- length(surv)
 

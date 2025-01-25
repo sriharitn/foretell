@@ -4,7 +4,7 @@
 \alias{BG}
 \title{Beta Geometric (BG) Model for Projecting Customer Retention.}
 \usage{
-BG(surv_value, h, lower = c(0.001, 0.001))
+BG(surv_value, h, lower = c(0.001, 0.001), subjects = 1000)
 }
 \arguments{
 \item{surv_value}{a numeric vector of historical customer retention percentage should start at 100 and non-starting values should be between 0 and less than 100}
@@ -12,6 +12,8 @@ BG(surv_value, h, lower = c(0.001, 0.001))
 \item{h}{forecasting horizon}
 
 \item{lower}{lower limit used in \code{R} \code{optim} rotuine. Default is \code{c(1e-3,1e-3)}.}
+
+\item{subjects}{Total number of customers or subject default 1000}
 }
 \value{
 \item{fitted:}{Fitted values based on historical data}

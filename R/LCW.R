@@ -6,6 +6,7 @@
 #' @param h forecasting horizon
 #' @param lower lower limit used in \code{R} \code{optim} rotuine. Default is \code{c(0.001,0.001,0.001,0.001,0.001)}.
 #' @param upper upper limit used in \code{R} \code{optim} rotuine. Default is \code{c(0.99999,10000,0.999999,10000,0.99999)}.
+#' @param subjects Total number of customers or subject default 1000
 #'
 #' @return
 #' \item{fitted:}{Fitted Values based on historical data}
@@ -24,13 +25,16 @@
 
 
 
-LCW <- function(surv_value,h, lower = c(0.001,0.001,0.001,0.001,0.001),upper = c(0.99999,10000,0.999999,10000,0.99999)){
+LCW <- function(surv_value,h, lower = c(0.001,0.001,0.001,0.001,0.001),upper = c(0.99999,10000,0.999999,10000,0.99999),
+                subjects = 1000){
 
   surv <- surv_value
 
   if(surv[1] != 100) stop("Starting Value should be 100")
 
   if(any(surv[-1] >= 100) | any(surv[-1] < 0)) stop("Starting Value should be 100 and non-starting value should be between 0 and less than 100")
+
+  surv <- (surv/100)*subjects
 
   t <- length(surv)
 
@@ -81,7 +85,14 @@ LCW <- function(surv_value,h, lower = c(0.001,0.001,0.001,0.001,0.001),upper = c
 
   cw <- (w*(1-t1)^(k^c1)+(1-w)*(1-t2)^(k^c2))*100
 
-  list(fitted = cw[1:t],projected = cw[(t+1):(t+h)],max.likelihood = max.lik.cw$value, params = c(t1=t1,c1=c1,t2=t2,c2=c2,w=w))
+  projected <- if (h > 0) {
+    projected <- cw[(t + 1):(t + h)]
+  } else {
+    message("Forecast horizon h is: ",h,", No Forecast generated.")
+    projected <- numeric(0) # Return an empty numeric vector if h = 0
+  }
+
+  list(fitted = cw[1:t],projected = projected,max.likelihood = max.lik.cw$value, params = c(t1=t1,c1=c1,t2=t2,c2=c2,w=w))
 
 }
 

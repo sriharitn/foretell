@@ -8,7 +8,8 @@ BdW(
   surv_value,
   h,
   lower = c(0.001, 0.001, 0.001),
-  upper = c(10000, 10000, 10000)
+  upper = c(10000, 10000, 10000),
+  subjects = 1000
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ BdW(
 \item{lower}{lower limit used in \code{R} \code{optim} rotuine. Default is \code{c(1e-3,1e-3)}.}
 
 \item{upper}{upper limit used in \code{R} \code{optim} rotuine. Default is \code{c(10000,10000,10000)}.}
+
+\item{subjects}{Total number of customers or subject default 1000}
 }
 \value{
 \item{fitted:}{Fitted values based on historical data}

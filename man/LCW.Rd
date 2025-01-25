@@ -8,7 +8,8 @@ LCW(
   surv_value,
   h,
   lower = c(0.001, 0.001, 0.001, 0.001, 0.001),
-  upper = c(0.99999, 10000, 0.999999, 10000, 0.99999)
+  upper = c(0.99999, 10000, 0.999999, 10000, 0.99999),
+  subjects = 1000
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ LCW(
 \item{lower}{lower limit used in \code{R} \code{optim} rotuine. Default is \code{c(0.001,0.001,0.001,0.001,0.001)}.}
 
 \item{upper}{upper limit used in \code{R} \code{optim} rotuine. Default is \code{c(0.99999,10000,0.999999,10000,0.99999)}.}
+
+\item{subjects}{Total number of customers or subject default 1000}
 }
 \value{
 \item{fitted:}{Fitted Values based on historical data}
