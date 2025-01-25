@@ -23,7 +23,7 @@
 #'
 #' For \eqn{x= 1,2,3,...,n} and \eqn{a > 0} and \eqn{b > 0}.
 #'
-#' The Shifted Beta Geometric (sBG) distribution, is a probability mixutre model of Beta and Geometric distributions. sBG was introduced by Fader and Hardie, models customer retention by assuming that
+#' The Shifted Beta Geometric (sBG) distribution, is a probability mixture model of Beta and Geometric distributions. sBG was introduced by Fader and Hardie, models customer retention by assuming that
 #' individuals have heterogeneous dropout probabilities. These probabilities are drawn from a Beta distribution, and each customer's retention follows a geometric process. This combination captures variability in churn behavior across a population,
 #' making it well-suited for analyzing survival data, customer lifetime and retention data.
 #'
