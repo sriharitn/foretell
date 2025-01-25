@@ -64,7 +64,7 @@ dsbg <- function(x, shape1, shape2, log = FALSE) {
   }
   if (any(x <=0)) {
     stop(paste0(
-      "All values of x must be non-negative integers >0. Found: ",
+      "All values of x must be non-negative integers > 0. Found: ",
       paste(x[x < 0], collapse = ", ")
     ))
   }
@@ -138,16 +138,30 @@ qsbg <-
       stop("Both shape1 and shape2 must be greater than 0.")
     }
 
-
-
     compute_quantile_scalar <- function(p) {
       if (p == 0) {
         return(0)
+      } else if (p == 1) {
+        return(Inf)
       } else {
-        result <- pracma::newton(function(t)
-          beta(shape1, shape2 + t) / beta(shape1, shape2) - p,
-          x0 = shape1 / (shape1 + shape2))
-        return(round(result$root))
+        # Define the target function
+        target_function <- function(t) {
+          beta_val <- beta(shape1, shape2 + t )
+          base_beta <- beta(shape1, shape2)
+          return(beta_val / base_beta - p)
+        }
+
+        result <-
+          uniroot(
+            f = target_function,
+            lower = 1e-8,
+            # Small positive value to avoid invalid domain
+            upper = 1e200,
+            # Adjust upper limit based on problem scale
+            extendInt = "yes"
+          )$root
+
+        return(round(result))
       }
     }
 
