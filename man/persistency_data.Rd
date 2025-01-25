@@ -4,7 +4,8 @@
 \name{persistency_data}
 \alias{persistency_data}
 \title{Drug persistency (retention) rates by different therapeutic class.}
-\format{A data frame 334 observatios and 3 variables:
+\format{
+A data frame 334 observatios and 3 variables:
 \describe{
   \item{therapy}{Type of therapy. Unique values include: \code{"Hypertension" "Occular Hypertension"
   "Statin" "Insulin" "Epilepsy" "RA" "Osteoporosis" "Alzheimer""ADHD"
@@ -13,7 +14,10 @@
   and discretized using \code{akima} package.}
   \item{time_period}{Time Period}
   \item{value}{\% Patients retained}
-}}
+}
+
+A data frame with 334 rows and 3 variables
+}
 \usage{
 data(persistency_data)
 }

@@ -4,8 +4,12 @@
 \alias{BdW}
 \title{Beta discrete Weibull (BdW) Model for Projecting Customer Retention.}
 \usage{
-BdW(surv_value, h, lower = c(0.001, 0.001, 0.001), upper = c(10000,
-  10000, 10000))
+BdW(
+  surv_value,
+  h,
+  lower = c(0.001, 0.001, 0.001),
+  upper = c(10000, 10000, 10000)
+)
 }
 \arguments{
 \item{surv_value}{a numeric vector of historical customer retention percentage should start at 100 and non-starting values should be between 0 and less than 100}

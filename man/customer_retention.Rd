@@ -4,7 +4,9 @@
 \name{customer_retention}
 \alias{customer_retention}
 \title{Observed \% Customers Surviving at Least 0-12 Years}
-\format{A data frame 13 observations and 3 variables.}
+\format{
+A data frame 13 observations and 3 variables.
+}
 \usage{
 data(customer_retention)
 }
