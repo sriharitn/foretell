@@ -39,9 +39,9 @@ Provides functions for the probability mass function (PMF), cumulative distribut
 }
 \details{
 The Shifted Beta Geometric distribution with two shape parameters shape1 (\eqn{a}) and shape2 (\eqn{b}) has the following CDF:
-\deqn{1- Beta(a,b+x^c)/Beta(a,b)}
+\deqn{1- Beta(a,b+x)/Beta(a,b)}
 
-For \eqn{x= 1,2,3,...,n} and \eqn{shape1>0} and \eqn{shape2 >0}.
+For \eqn{x= 1,2,3,...,n} and \eqn{a > 0} and \eqn{b > 0}.
 
 The Shifted Beta Geometric (sBG) distribution, is a probability mixutre model of Beta and Geometric distributions. sBG was introduced by Fader and Hardie, models customer retention by assuming that
 individuals have heterogeneous dropout probabilities. These probabilities are drawn from a Beta distribution, and each customer's retention follows a geometric process. This combination captures variability in churn behavior across a population,
