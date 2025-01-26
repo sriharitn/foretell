@@ -148,7 +148,7 @@ qbdw <-
         target_function <- function(t) {
           beta_val <- beta(shape1, shape2 + t ^ shape3)
           base_beta <- beta(shape1, shape2)
-          return(beta_val / base_beta - p)
+          return((1- (beta_val / base_beta)) - p)
         }
 
         result <-
