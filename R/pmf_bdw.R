@@ -138,35 +138,47 @@ qbdw <-
     if (shape1 <= 0 || shape2 <= 0 || shape3 <= 0) {
       stop("shape1, shape2 and shape3 must be greater than 0.")
     }
-    compute_quantile_scalar <- function(p) {
-      if (p == 0) {
-        return(0)
-      } else if (p == 1) {
-        return(Inf)
-      } else {
-        # Define the target function
-        target_function <- function(t) {
-          beta_val <- beta(shape1, shape2 + t ^ shape3)
-          base_beta <- beta(shape1, shape2)
-          return((1- (beta_val / base_beta)) - p)
+    solve_for_x_vectorized <- function(a=shape1, b=shape2, c=shape3, u=p, tol = 1e-8, max_iter = 100) {
+      # Ensure u is a vector
+      if (!is.vector(u)) {
+        stop("u must be a vector")
+      }
+
+      # Define the inner function for a single value of u
+      solve_for_x_single <- function(u_single) {
+        # Initial guess for x
+        x <- 0.5  # Adjust based on a and b if needed
+
+        # Newton-Raphson iteration
+        for (i in 1:max_iter) {
+          # Compute the ratio Beta(a, b + x) / Beta(a, b)
+          beta_ratio <- beta(a, b + x^c) / beta(a, b)
+
+          # Define the function f(x)
+          f <- 1 - beta_ratio - u_single
+
+          # Check for convergence
+          if (abs(f) < tol) {
+            return(x)
+          }
+
+          ## Analytical Derivative
+
+          f_prime <- -(c*x^(-1 + c) * beta(a, b + x^c) (digamma(b + x^c) - digamma(a + b + x^c)))/beta(a, b)
+
+          # Newton-Raphson update
+          x <- x - f / f_prime
         }
 
-        result <-
-          uniroot(
-            f = target_function,
-            lower = 1e-8,
-            # Small positive value to avoid invalid domain
-            upper = 1e200,
-            # Adjust upper limit based on problem scale
-            extendInt = "yes"
-          )$root
-
-        return(round(result))
+        # If max_iter is reached without convergence
+        stop("Failed to converge within the maximum number of iterations")
       }
+
+      # Apply the function to each element of u
+      return(sapply(u, solve_for_x_single))
     }
 
-    vectorized_compute <- Vectorize(compute_quantile_scalar)
-    return(vectorized_compute(p))
+    return(round(solve_for_x_vectorized()))
   }
 
 
