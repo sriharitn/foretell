@@ -146,8 +146,13 @@ qbdw <-
 
       # Define the inner function for a single value of u
       solve_for_x_single <- function(u_single) {
-        # Initial guess for x
-        x <- 0.5  # Adjust based on a and b if needed
+
+
+        if (u_single == 0) {
+          return(x=0)
+        }
+        # Initial guess for x, continuous parallel weibull gamma
+        x <- (-b + (1 - u_single)^(-1/a)*b)^(1/c)
 
         # Newton-Raphson iteration
         for (i in 1:max_iter) {
@@ -164,7 +169,7 @@ qbdw <-
 
           ## Analytical Derivative
 
-          f_prime <- -(c*x^(-1 + c) * beta(a, b + x^c) (digamma(b + x^c) - digamma(a + b + x^c)))/beta(a, b)
+          f_prime <- -(c*x^(-1 + c) * beta(a, b + x^c)*(digamma(b + x^c) - digamma(a + b + x^c)))/beta(a, b)
 
           # Newton-Raphson update
           x <- x - f / f_prime

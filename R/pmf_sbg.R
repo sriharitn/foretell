@@ -146,8 +146,8 @@ qsbg <-
 
         # Define the inner function for a single value of u
         solve_for_x_single <- function(u_single) {
-          # Initial guess for x
-          x <- 0.5  # Adjust based on a and b if needed
+          # Initial guess for x, from continuous parallel distribution Exponential gamma
+          x <- -b * ((1 - u_single)^(1/a) - 1) * (1 - u_single)^(-1/a)  # Adjust based on a and b if needed
 
           # Newton-Raphson iteration
           for (i in 1:max_iter) {
