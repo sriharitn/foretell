@@ -138,7 +138,7 @@ qbdw <-
     if (shape1 <= 0 || shape2 <= 0 || shape3 <= 0) {
       stop("shape1, shape2 and shape3 must be greater than 0.")
     }
-    solve_for_x_vectorized <- function(a=shape1, b=shape2, c=shape3, u=p, tol = 1e-15, max_iter = 100) {
+    solve_for_x_vectorized <- function(a=shape1, b=shape2, c=shape3, u=p, tol = 1e-8, max_iter = 100) {
       # Ensure u is a vector
       if (!is.vector(u)) {
         stop("u must be a vector")
