@@ -6,8 +6,8 @@
 \usage{
 sim.sbg1c(
   object,
-  B1 = 500,
-  B2 = 100,
+  B1 = 1000,
+  B2 = 0,
   level = 0.95,
   scale = c("prob", "percent", "count"),
   seed = NULL,

@@ -100,7 +100,7 @@ rgeom_mix <- function(n, p, d = 0, cure = 0) {
 #' @importFrom graphics plot lines points legend abline
 sim.geom1c <- function(
     object,
-    B1 = 500, B2 = 100, level = 0.95,
+    B1 = 1000, B2 = 0, level = 0.95,
     scale = c("prob","percent","count"),
     seed = NULL, verbose = FALSE
 ) {

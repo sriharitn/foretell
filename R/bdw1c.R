@@ -534,7 +534,7 @@ predict.bdw_fit <- function(object, n_ahead = NULL, scale = c("input","percent",
 plot.bdw_fit <- function(x,
                          scale = c("input","percent","count","prob"),
                          bands = NULL,  # list: $fundamental, $estimation, $both (each: time, lower, upper, S_hat?, part)
-                         show_observed_points = TRUE, show_observed_line = FALSE,
+                         show_observed_points = TRUE, show_observed_line = TRUE,
                          show_model_line = TRUE, show_projection_line = TRUE,
                          show_boundary = TRUE, connect_boundary = TRUE,
                          # lines
