@@ -45,7 +45,33 @@ bdw1c(
 \item{percent_tol, boundary_tol}{Tolerances for monotonicity checks and boundary SE skipping.}
 }
 \value{
-An object of class `bdw_fit`.
+An object of class \code{bdw_fit} with the elements shown below:
+\describe{
+  \item{\code{y}}{Numeric vector of observed survival values on the input scale.}
+  \item{\code{input}}{Character scalar, one of \code{"input"}, \code{"percent"},
+    \code{"count"}, or \code{"prob"}; echoes how \code{y} was interpreted.}
+  \item{\code{N0}}{Scalar. Reference cohort size used for count/percent scaling.}
+  \item{\code{flags}}{Named logical vector with model switches, e.g.
+    \code{c(one_and_done = TRUE/FALSE, cure = TRUE/FALSE)}.}
+  \item{\code{coef_params}}{Named numeric vector of parameters on the natural scale.
+    For sBG: \code{c(a,b)} and optionally \code{d} (one-and-done) and \code{cure}.
+    For BDW: \code{c(a,b,c)} and optionally \code{d}, \code{cure}.}
+  \item{\code{coef_repar}}{Named numeric vector with the mean-polarization reparameterization,
+    typically \code{c(m,q)} (and \code{c} for BDW if modeled on the log/exp scale).}
+  \item{\code{logits}}{Named numeric vector of unconstrained optimization variables
+    (e.g., \code{theta_m}, \code{theta_q}, \code{theta_d}, \code{theta_cure}, \code{theta_c}).}
+  \item{\code{fitted}}{Numeric vector \eqn{S(0{:}T_{\mathrm{obs}}-1)} on the probability scale; the in-sample fit.}
+  \item{\code{projected}}{Numeric vector \eqn{S(0{:}T_{\mathrm{last}})} (fit + horizon) on the probability scale.}
+  \item{\code{logLik}}{Maximized log-likelihood.}
+  \item{\code{convergence}}{Optimizer return code (0 indicates successful convergence).}
+  \item{\code{optim_out}}{Raw optimizer list (as returned by \code{optim()}); useful for debugging.}
+  \item{\code{vcov_theta}}{Variance-covariance matrix on the unconstrained scale (logits).}
+  \item{\code{vcov_params}}{Variance-covariance matrix for \code{coef_params} (delta-method mapped from \code{vcov_theta}).}
+  \item{\code{vcov_repar}}{Variance-covariance matrix for \code{coef_repar} (e.g., \code{m,q}).}
+  \item{\code{se_params}}{Named vector of standard errors for \code{coef_params}.}
+  \item{\code{se_repar}}{Named vector of standard errors for \code{coef_repar}.}
+  \item{\code{se_note}}{Character note if SEs are approximate/unstable (e.g., near-PD fix).}
+}
 }
 \description{
 Fits the Beta-Discrete-Weibull (BDW) survival model to a monotonically
