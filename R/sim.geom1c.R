@@ -85,11 +85,14 @@ rgeom_mix <- function(n, p, d = 0, cure = 0) {
 #' @examples
 #' \dontrun{
 #' N0 <- 400
-#' S  <- c(100,94,90,87,85,84,83,82,81,80,79)
+#' S  <- c(100, 86.9, 74.3, 65.3, 59.3, 55.1, 51.7, 49.1)
 #' fit <- sbg1c(S, h = 6, N0 = N0, input = "percent")
 #' b   <- sim.sbg1c(fit, B1 = 200, B2 = 50, level = 0.90, scale = "percent", seed = 123)
 #' plot(fit, scale = "percent", bands = b)
 #' }
+#'
+#' @references {King G. , Tomz M. and Wittenberg J. Making the most of statistical analyses: Improving interpretation and presentation.
+#' American journal of political science, 2000;347-61.}
 #'
 #' @export
 #' @importFrom stats rgeom rbinom quantile optimHess pnorm setNames

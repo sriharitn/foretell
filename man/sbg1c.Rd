@@ -59,10 +59,41 @@ Parameters \eqn{(a,b)} (and optionally \eqn{d,\pi}) are estimated by maximizing 
 likelihood implied by the observed survival series using an internal unconstrained
 parameterization. If \code{compute_se = TRUE}, standard errors on the original scale
 are obtained via the delta method.
+
+\strong{Beta reparameterization by mean and polarization index:}
+The model uses a numerically stable and interpretable reparameterization of
+the Beta distribution \eqn{Beta(a,b)} in terms of a **mean**
+\eqn{m \in (0,1)} and a **polarization (concentration) index**
+\eqn{q \in (0,1)}.
+
+Standard Beta density:
+\deqn{f(x \mid a,b) = \frac{x^{a-1}(1-x)^{b-1}}{B(a,b)}, \quad x\in(0,1),\; a,b>0.}
+
+Mapping to mean and polarization:
+\deqn{m = \frac{a}{a+b}, \qquad q = \frac{1}{1+a+b}.}
+Here, \eqn{m} is the expected probability, and \eqn{q} summarizes concentration:
+small \eqn{q} means large \eqn{a+b} (high concentration); large \eqn{q}
+means small \eqn{a+b} (diffuse).
+
+Inverse mapping (used internally for estimation):
+\deqn{a = m \left(\frac{1}{q}-1\right), \qquad
+      b = (1-m)\left(\frac{1}{q}-1\right).}
+
+This transformation is bijective for \eqn{m \in (0,1)}, \eqn{q \in (0,1)},
+and guarantees \eqn{a>0, b>0}.
+
+\strong{Starting values:}
+The arguments \code{starts_m} and \code{starts_q} provide starting values for
+\eqn{m} and \eqn{q}, respectively. They are converted to \eqn{(a,b)} via the
+inverse mapping above:
+\deqn{a_{\text{start}} = \text{starts\_m}\left(\frac{1}{\text{starts\_q}}-1\right), \quad
+      b_{\text{start}} = \left(1-\text{starts\_m}\right)\left(\frac{1}{\text{starts\_q}}-1\right).}
+This parameterization typically improves optimization stability and makes
+starting values more interpretable.
 }
 \examples{
 \dontrun{
-N0 <- 500; S <- c(100,94,90,87,85,84,83,82,81,80,79)
+N0 <- 500; S <- c(100, 86.9, 74.3, 65.3, 59.3, 55.1, 51.7, 49.1)
 fit <- sbg1c(S, h=6, N0=N0, input="percent")
 summary(fit)
 plot(fit, scale="percent")
