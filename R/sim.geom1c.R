@@ -101,7 +101,7 @@ rgeom_mix <- function(n, p, d = 0, cure = 0) {
 sim.geom1c <- function(
     object,
     B1 = 1000, B2 = 0, level = 0.95,
-    scale = c("prob","percent","count"),
+    scale = c("percent","count","prob"),
     seed = NULL, verbose = FALSE
 ) {
   stopifnot(inherits(object, "geom_fit"))

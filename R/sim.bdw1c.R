@@ -108,7 +108,7 @@ rbdw_mix <- function(n, a, b, c, d = 0, cure = 0) {
 sim.bdw1c <- function(
     object,
     B1 = 1000, B2 = 0, level = 0.95,
-    scale = c("prob","percent","count"),
+    scale = c("percent","count","prob"),
     seed = NULL, verbose = FALSE
 ) {
   stopifnot(inherits(object, "bdw_fit"))
@@ -130,6 +130,7 @@ sim.bdw1c <- function(
   res <- list()
 
   ## Fundamental only
+  if (isTRUE(verbose)) message("Computing fundamental bands (B1=", B1, ")...")
   SmatF <- matrix(NA_real_, nrow = B1, ncol = Tlast + 1L)
   for (b in seq_len(B1)) {
     ten <- rbdw_mix(N0, a0, b0, c0, d0, cfr0)
@@ -144,8 +145,10 @@ sim.bdw1c <- function(
     part  = ifelse(0:Tlast <= (Tobs - 1), "fitted", "projected")
   )
 
-  ## Estimation only (avg over B2 process draws)
+  ## Estimation only (avg over B1 process draws)
   if (is.null(object$vcov_theta)) stop("Need vcov_theta from fit for estimation uncertainty.")
+  if (isTRUE(verbose)) message("Computing estimation bands (B1=", B1,
+                               if (B2 > 0) paste0(", averaging over B2=", B2) else ", closed-form", ")...")
   TH <- .bdw_draw_thetas(B1, mu = unname(object$logits), Sigma = object$vcov_theta)
 
   SmatE <- matrix(NA_real_, nrow = B1, ncol = Tlast + 1L)
@@ -183,6 +186,7 @@ sim.bdw1c <- function(
 
   ## Both (param draw + single process draw)
   SmatB <- matrix(NA_real_, nrow = B1, ncol = Tlast + 1L)
+  if (isTRUE(verbose)) message("Computing predictive (both) bands (B1=", B1, ", single process draw each)...")
   for (bix in seq_len(B1)) {
     th <- TH[bix, ]
     i <- 1L
